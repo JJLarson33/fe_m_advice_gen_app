@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap" rel="stylesheet">
   
   <title>Frontend Mentor | Advice generator app</title>
 
@@ -12,17 +15,51 @@
   <style>
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
+    body { background-color: hsl(218, 23%, 16%);}
+    #wrapper { background-color: hsl(217, 19%, 24%); display: grid}
+    #container { background-color: hsl(217, 19%, 38%); }
+    #button { background-color: hsl(150, 100%, 66%);
+              background-image: url("./images/icon-dice.svg");               
+              background-position: center;
+              background-repeat: no-repeat;
+              border-radius: 50%;
+              width: 50px;
+              height: 50px;              
+                            
+            }
+    
   </style>
 </head>
 <body>
-
-  Advice #<!-- Advice ID goes here -->
-
-  "<!-- Advice text goes here -->"
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
+  <div id="wrapper">
+    <div id="container">      
+      <p id="advice_id"></p><!-- Advice ID goes here -->
+      <p id="advice"></p><!-- Advice text goes here -->
+    </div>
+    <button id="button" type="button" name="new_advice" onclick=fetchAdvice()>
+    </button>    
   </div>
+  <script>
+  async function fetchAdvice() {
+    const url = `https://api.adviceslip.com/advice?timestamp=${new Date().getTime()}`;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      const json = await response.json()      
+      document.getElementById('advice_id').textContent = `Advice # ${json.slip.id}`;
+      document.getElementById('advice').textContent = `"${json.slip.advice}"`;
+      console.log(json);        
+    } catch (error) {
+      console.error(error.message);
+      }
+  }  
+  </script>  
+  <noscript>Sorry, your browser does not support JavaScript!</noscript>
+  <!--<div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Jonah J. Larson</a>. 
+  </div> -->
 </body>
 </html>
