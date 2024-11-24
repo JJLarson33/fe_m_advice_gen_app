@@ -7,38 +7,46 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  
   
   <title>Frontend Mentor | Advice generator app</title>
 
   <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
   <style>
+    .manrope-advice {
+      font-family: "Manrope", serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+    }
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
-    body { background-color: hsl(218, 23%, 16%);}
-    #wrapper { background-color: hsl(217, 19%, 24%); display: grid}
-    #container { background-color: hsl(217, 19%, 38%); }
+    body { background-color: hsl(218, 23%, 16%); display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column;}
+    #wrapper { background-color: hsl(217, 19%, 24%); display: flex; flex-direction: column;  align-items: center; justify-content: center; height: 35vh; width: 50vh; border-radius: 10px; box-shadow: 1px 1px 1px 1px #1e2430;}
+    #divider { width: 80%; margin: 1.5rem;}    
+    #advice_id { color: hsl(150, 100%, 66%); display: flex; text-align: center; font-family: 'Manrope'; font-weight: 600; justify-content: start;}
+    #advice { color: hsl(193, 38%, 86%); text-align: center; font-size: 24px; font-family: 'Manrope'; font-weight: 700; padding-left: 1em; padding-right: 1em;}
     #button { background-color: hsl(150, 100%, 66%);
               background-image: url("./images/icon-dice.svg");               
               background-position: center;
               background-repeat: no-repeat;
               border-radius: 50%;
-              width: 50px;
-              height: 50px;              
-                            
-            }
-    
+              width: 75px;
+              height: 75px;
+              position: relative;
+              bottom: 40px;                                                             
+            }    
   </style>
 </head>
 <body>
   <div id="wrapper">
-    <div id="container">      
-      <p id="advice_id"></p><!-- Advice ID goes here -->
-      <p id="advice"></p><!-- Advice text goes here -->
-    </div>
-    <button id="button" type="button" name="new_advice" onclick=fetchAdvice()>
-    </button>    
+    <p id="advice_id"></p><!-- Advice ID goes here -->
+    <p id="advice"></p><!-- Advice text goes here -->
+    <img id="divider" src="./images/pattern-divider-mobile.svg"></img>    
   </div>
+  <button id="button" type="button" name="new_advice" onclick=fetchAdvice()>
+  </button>
   <script>
   async function fetchAdvice() {
     const url = `https://api.adviceslip.com/advice?timestamp=${new Date().getTime()}`;
